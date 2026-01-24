@@ -1,24 +1,85 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# データベース設計
 
-Things you may want to cover:
+## ER図(URL)
+https://gyazo.com/6c60fec35a2b47cd5aad59591a8b540c
 
-* Ruby version
 
-* System dependencies
+# users テーブル
 
-* Configuration
+| Column             | Type     | Options                   |
+|--------------------|----------|---------------------------|
+| id                 | bigint   | primary key               |
+| username           | string   | null: false, unique: true |
+| email              | string   | null: false, unique: true |
+| encrypted_password | string   | null: false               |
+| first_name         | string   | null: false               |
+| last_name          | string   | null: false               |
+| first_name_kana    | string   | null: false               |
+| last_name_kana     | string   | null: false               |
+| birthday           | date     | null: false               |
+| created_at         | datetime | null: false               |
+| updated_at         | datetime | null: false               |
 
-* Database creation
+# Association
+- has_many :items
+- has_many :orders
 
-* Database initialization
+---
 
-* How to run the test suite
+# items テーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column           | Type     | Options                        |
+|------------------|----------|--------------------------------|
+| id               | bigint   | primary key                    |
+| name             | string   | null: false                    |
+| description      | text     | null: false                    |
+| price            | integer  | null: false                    |
+| category_id      | integer  | null: false                    |
+| condition_id     | integer  | null: false                    |
+| shipping_fee_id  | integer  | null: false                    |
+| prefecture_id    | integer  | null: false                    |
+| shipping_day_id  | integer  | null: false                    |
+| user_id          | bigint   | null: false, foreign_key: true |
+| created_at       | datetime | null: false                    |
+| updated_at       | datetime | null: false                    |
 
-* Deployment instructions
+# Association
+- belongs_to :user
+- has_one :order
 
-* ...
+---
+
+# orders テーブル
+
+| Column     | Type     | Options                        |
+|------------|----------|--------------------------------|
+| id         | bigint   | primary key                    |
+| user_id    | bigint   | null: false, foreign_key: true |
+| item_id    | bigint   | null: false, foreign_key: true |
+| created_at | datetime | null: false                    |
+| updated_at | datetime | null: false                    |
+
+# Association
+- belongs_to :user
+- belongs_to :item
+
+
+## addresses テーブル（配達先情報）
+
+| Column          | Type     | Options                        | 
+|-----------------|----------|--------------------------------|
+| id              | integer  | null: false, primary key       | 
+| postal_code     | string   | null: false                    | 
+| prefecture_id   | integer  | null: false                    |
+| city            | string   | null: false                    |
+| address_line    | string   | null: false                    | 
+| building        | string   |                                | 
+| phone_number    | string   | null: false                    | 
+| order_id        | integer  | null: false, foreign_key: true | 
+| created_at      | datetime | null: false                    | 
+| updated_at      | datetime | null: false                    | 
+
+### アソシエーション
+- belongs_to :order  
