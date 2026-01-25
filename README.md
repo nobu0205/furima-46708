@@ -3,7 +3,7 @@
 # データベース設計
 
 ## ER図(URL)
-https://gyazo.com/8c1cf24c4fd6ac30c991c0361ce4bfb3
+https://gyazo.com/46040c52dfdb1f0409ec654bdf552e1c
 
 
 # users テーブル
@@ -56,8 +56,8 @@ https://gyazo.com/8c1cf24c4fd6ac30c991c0361ce4bfb3
 | Column     | Type     | Options                        |
 |------------|----------|--------------------------------|
 | id         | bigint   | primary key                    |
-| user_id    | bigint   | null: false, foreign_key: true |
-| item_id    | bigint   | null: false, foreign_key: true |
+| user       |references| null: false, foreign_key: true |
+| item       |references| null: false, foreign_key: true |
 | created_at | datetime | null: false                    |
 | updated_at | datetime | null: false                    |
 
@@ -78,7 +78,7 @@ https://gyazo.com/8c1cf24c4fd6ac30c991c0361ce4bfb3
 | address_line    | string   | null: false                    | 
 | building        | string   |                                | 
 | phone_number    | string   | null: false                    | 
-| order_id        | integer  | null: false, foreign_key: true | 
+| order           |references| null: false, foreign_key: true | 
 | created_at      | datetime | null: false                    | 
 | updated_at      | datetime | null: false                    | 
 
