@@ -3,7 +3,7 @@
 # データベース設計
 
 ## ER図(URL)
-https://gyazo.com/6c60fec35a2b47cd5aad59591a8b540c
+https://gyazo.com/8c1cf24c4fd6ac30c991c0361ce4bfb3
 
 
 # users テーブル
@@ -11,7 +11,7 @@ https://gyazo.com/6c60fec35a2b47cd5aad59591a8b540c
 | Column             | Type     | Options                   |
 |--------------------|----------|---------------------------|
 | id                 | bigint   | primary key               |
-| username           | string   | null: false, unique: true |
+| username           | string   | null: false               |
 | email              | string   | null: false, unique: true |
 | encrypted_password | string   | null: false               |
 | first_name         | string   | null: false               |
@@ -41,7 +41,7 @@ https://gyazo.com/6c60fec35a2b47cd5aad59591a8b540c
 | shipping_fee_id  | integer  | null: false                    |
 | prefecture_id    | integer  | null: false                    |
 | shipping_day_id  | integer  | null: false                    |
-| user_id          | bigint   | null: false, foreign_key: true |
+| user             |references| null: false, foreign_key: true |
 | created_at       | datetime | null: false                    |
 | updated_at       | datetime | null: false                    |
 
@@ -64,13 +64,14 @@ https://gyazo.com/6c60fec35a2b47cd5aad59591a8b540c
 # Association
 - belongs_to :user
 - belongs_to :item
+- has_one :address
 
 
 ## addresses テーブル（配達先情報）
 
 | Column          | Type     | Options                        | 
 |-----------------|----------|--------------------------------|
-| id              | integer  | null: false, primary key       | 
+| id              | bigint   | null: false, primary key       | 
 | postal_code     | string   | null: false                    | 
 | prefecture_id   | integer  | null: false                    |
 | city            | string   | null: false                    |
