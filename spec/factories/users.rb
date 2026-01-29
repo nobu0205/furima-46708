@@ -3,12 +3,12 @@ FactoryBot.define do
     username { 'testuser' }
     first_name { '太郎' }
     last_name { '山田' }
-    first_name_kana { 'テストファースト' }
-    last_name_kana { 'テストラスト' }
+    first_name_kana { 'タロウ' }
+    last_name_kana { 'ヤマダ' }
     birthday { '2000-01-01' }
 
-    sequence(:email) { |n| "test#{n}@example.com" }
+    email { Faker::Internet.unique.email }
     password { 'password1' }
-    password_confirmation { 'password1' }
+    password_confirmation { password }
   end
 end
