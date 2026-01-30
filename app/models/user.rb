@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  VALID_NAME_REGEX =  /\A[ぁ-んァ-ン一-龥]+\z/
+  VALID_NAME_REGEX =  /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
   validates :username, presence: true
   validates :first_name, :last_name, presence: true, format: { with: VALID_NAME_REGEX, message: "は全角で入力してください" }
 
