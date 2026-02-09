@@ -89,7 +89,7 @@ RSpec.describe Item, type: :model do
         item = FactoryBot.build(:item, price: '１０００')
         item.valid?
         expect(item.errors.full_messages).to include('Price is not a number')
-      end  
+      end
     end
   end
 end
