@@ -3,17 +3,11 @@ require 'rails_helper'
 RSpec.describe PurchaseAddress, type: :model do
   before do
     @user = FactoryBot.create(:user)
-    @item = FactoryBot.create(:item) # DBに保存することが重要
-    @purchase_address = PurchaseAddress.new(
-      postal_code: '123-4567',
-      prefecture_id: 2,
-      city: '横浜市',
-      addresses: '青山1-1-1',
-      building: '柳ビル103',
-      phone_number: '09012345678',
+    @item = FactoryBot.create(:item)
+    @purchase_address = FactoryBot.build(
+      :purchase_address,
       user_id: @user.id,
-      item_id: @item.id,
-      token: 'tok_abcdefghijk00000000000000000'
+      item_id: @item.id
     )
   end
 
