@@ -7,14 +7,32 @@ class OrdersController < ApplicationController
     @purchase_address = PurchaseAddress.new
   end
 
+  def new
+    @purchase_address = PurchaseAddress.new
+  end
+
   def create
     @purchase_address = PurchaseAddress.new(order_params)
+
     if @purchase_address.valid?
-      pay_item
-      @purchase_address.save
-      redirect_to root_path
+      # token が空でないかチェック
+      if order_params[:token].present?
+        begin
+          pay_item
+          @purchase_address.save
+          redirect_to root_path, notice: '購入が完了しました。'
+        rescue Payjp::CardError => e
+          # カード情報エラーは token に紐づける
+          @purchase_address.errors.add(:token, 'カード情報に誤りがあります')
+          render :index
+        end
+      else
+        @purchase_address.errors.add(:token, "can't be blank")
+        render :index
+      end
     else
-      render :index, status: :unprocessable_entity
+      # フォーム入力エラーは赤文字で表示
+      render :index
     end
   end
 
