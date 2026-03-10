@@ -18,4 +18,15 @@ class Item < ApplicationRecord
             numericality: { other_than: 1, message: 'を選択してください' }
   validates :price, presence: true,
                     numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+
+  before_destroy :ensure_not_purchased
+
+  private
+
+  def ensure_not_purchased
+    return unless purchase.present?
+
+    errors.add(:base, '購入済みの商品は削除できません')
+    throw(:abort)
+  end
 end

@@ -36,8 +36,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item.destroy
-    redirect_to root_path
+    if @item.purchase.present?
+      redirect_to root_path, alert: '購入済みの商品は削除できません'
+    else
+      @item.destroy
+      redirect_to root_path, notice: '商品を削除しました'
+    end
   end
 
   private

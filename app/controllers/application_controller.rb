@@ -11,9 +11,15 @@ class ApplicationController < ActionController::Base
                                       ])
   end
 
+  def migrate_status
+    render plain: ActiveRecord::Base.connection.migration_context.current_version
+  end
+
   private
 
   def basic_auth
+    return if Rails.env.local?
+
     authenticate_or_request_with_http_basic do |username, password|
       username == ENV['BASIC_AUTH_USER'] && password == ENV['BASIC_AUTH_PASSWORD']
     end
