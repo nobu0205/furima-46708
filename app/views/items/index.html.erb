@@ -128,7 +128,17 @@
               <%= link_to item_path(item) do %>
                 <div class='item-img-content'>
 
-                  <%= image_tag item.image, class: "item-img" %>
+                  <% if item.purchase.present? %>
+                    <div class='sold-out'>
+                      <span>Sold Out!!</span>
+                    </div>
+                  <% end %>
+
+                  <% if item.image.attached? %>
+                    <%= image_tag item.image, class: "item-img" %>
+                    <% else %>
+                    <%= image_tag "item-sample.png", class: "item-img" %>
+                  <% end %>
                 </div>
 
                 <div class='item-info'>
