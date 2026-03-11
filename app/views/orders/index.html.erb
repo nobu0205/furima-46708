@@ -33,14 +33,14 @@
 
       <%# --- エラー表示 --- %>
       <% if @purchase_address.errors.any? %>
-        <div class="error_messages" style="color: red; margin-bottom: 20px;">
-          <ul>
-            <% @purchase_address.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
+  <div class="error_messages" style="color: red; margin-bottom: 20px;">
+    <ul>
+      <% @purchase_address.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
+    </ul>
+  </div>
+<% end %>
       <%# --- /エラー表示 --- %>
 
       <%# カード情報の入力 %>
